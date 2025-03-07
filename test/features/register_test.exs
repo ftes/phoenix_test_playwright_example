@@ -13,5 +13,7 @@ defmodule Features.RegisterTest do
     |> fill_in("Password", with: "passwordpassword")
     |> click_button("Create an account")
     |> assert_has("#flash-info", text: "Account created")
+    |> visit(~p"/users/settings")
+    |> assert_has("h1", text: "Settings")
   end
 end
