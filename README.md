@@ -1,18 +1,17 @@
-# MyApp
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ftes/phoenix_test_playwright_example/elixir.yml)](https://github.com/ftes/phoenix_test_playwright_example/actions)
 
-To start your Phoenix server:
+# PhoenixTest Playwright example
 
-* Run `mix setup` to install and setup dependencies
-* Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+To run the feature test:
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+```
+npm --prefix assets i
+npm --prefix assets exec playwright install chromium --with-deps
+mix deps.get
+mix assets.build
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+mix test.feature
+```
 
-## Learn more
-
-* Official website: https://www.phoenixframework.org/
-* Guides: https://hexdocs.pm/phoenix/overview.html
-* Docs: https://hexdocs.pm/phoenix
-* Forum: https://elixirforum.com/c/phoenix-forum
-* Source: https://github.com/phoenixframework/phoenix
+The Playwright trace viewer should automatically open.
+If it doesn't, drop the `tmp/*.zip` file into [trace.playwright.dev](https://trace.playwright.dev).

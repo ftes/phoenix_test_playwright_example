@@ -11,6 +11,7 @@ defmodule MyApp.Accounts.UserNotifier do
       |> to(recipient)
       |> from({"MyApp", "contact@example.com"})
       |> subject(subject)
+      |> html_body(body)
       |> text_body(body)
 
     with {:ok, _metadata} <- Mailer.deliver(email) do
@@ -74,7 +75,7 @@ defmodule MyApp.Accounts.UserNotifier do
 
     You can confirm your account by visiting the URL below:
 
-    #{url}
+    <a href="#{url}">Confirm account</a>
 
     If you didn't create an account with us, please ignore this.
 
