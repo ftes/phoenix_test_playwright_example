@@ -52,6 +52,10 @@ defmodule MyAppWeb do
     quote do
       use Phoenix.LiveView
 
+      if Application.compile_env(:my_app, :sql_sandbox) do
+        on_mount(MyAppWeb.LiveAsyncFeatureTests)
+      end
+
       unquote(html_helpers())
     end
   end

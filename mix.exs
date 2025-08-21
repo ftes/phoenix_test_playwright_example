@@ -66,7 +66,9 @@ defmodule MyApp.MixProject do
       {:gettext, "~> 0.26"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
-      {:bandit, "~> 1.5"}
+      {:bandit, "~> 1.5"},
+      {:phoenix_test, "~> 0.7", only: :test, runtime: false},
+      {:phoenix_test_playwright, "~> 0.7", only: :test, runtime: false}
     ]
   end
 
@@ -82,7 +84,12 @@ defmodule MyApp.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
+      "assets.setup": [
+        "tailwind.install --if-missing",
+        "esbuild.install --if-missing",
+        "cmd npm --prefix assets i",
+        "cmd npm --prefix assets exec playwright -- install chromium --with-deps --only-shell"
+      ],
       "assets.build": ["tailwind my_app", "esbuild my_app"],
       "assets.deploy": [
         "tailwind my_app --minify",

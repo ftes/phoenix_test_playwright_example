@@ -21,10 +21,10 @@ config :my_app, MyApp.Repo,
 config :my_app, MyAppWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "jsn/1/91hihxhFlb/ynE1r2Y3uIk1LZhSMyYJghMaBFowokOQOWU0taPLmaOOxSR",
-  server: false
+  server: true
 
 # In test we don't send emails
-config :my_app, MyApp.Mailer, adapter: Swoosh.Adapters.Test
+# config :my_app, MyApp.Mailer, adapter: Swoosh.Adapters.Local
 
 # Disable swoosh api client as it is only required for production adapters
 config :swoosh, :api_client, false
@@ -38,3 +38,16 @@ config :phoenix, :plug_init_mode, :runtime
 # Enable helpful, but potentially expensive runtime checks
 config :phoenix_live_view,
   enable_expensive_runtime_checks: true
+
+config :my_app,
+  sql_sandbox: true,
+  dev_routes: true
+
+config :phoenix_test,
+  endpoint: MyAppWeb.Endpoint,
+  otp_app: :my_app,
+  playwright: [
+    # trace failed tests in CI via re-run
+    trace: System.get_env("PLAYWRIGHT_TRACE", "false") in ~w(t true),
+    trace_dir: "tmp"
+  ]
