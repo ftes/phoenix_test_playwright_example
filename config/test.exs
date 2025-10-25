@@ -21,7 +21,7 @@ config :my_app, MyApp.Repo,
 config :my_app, MyAppWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "jsn/1/91hihxhFlb/ynE1r2Y3uIk1LZhSMyYJghMaBFowokOQOWU0taPLmaOOxSR",
-  server: true
+  server: false
 
 # In test we don't send emails
 # config :my_app, MyApp.Mailer, adapter: Swoosh.Adapters.Local
@@ -40,7 +40,7 @@ config :phoenix_live_view,
   enable_expensive_runtime_checks: true
 
 config :my_app,
-  sql_sandbox: true,
+  sql_sandbox: false,
   dev_routes: true
 
 config :phoenix_test,
@@ -49,5 +49,6 @@ config :phoenix_test,
   playwright: [
     # trace failed tests in CI via re-run
     trace: System.get_env("PLAYWRIGHT_TRACE", "false") in ~w(t true),
-    trace_dir: "tmp"
+    trace_dir: "tmp",
+    timeout: 10_000
   ]
