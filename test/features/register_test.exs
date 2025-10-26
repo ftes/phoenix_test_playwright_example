@@ -1,5 +1,5 @@
 defmodule Features.RegisterTest do
-  @test_suites String.to_integer(System.get_env("TEST_SUITES"))
+  @test_suites String.to_integer(System.get_env("T"))
   @iterations_within_test 10
 
   use PlaywrightNoSandboxCase,

@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-const testSuites = Number.parseInt(process.env.TEST_SUITES);
+const testSuites = Number.parseInt(process.env.T);
 const iterationsWithinTest = 10;
 
 Array.from({ length: testSuites }).map((_, i) => {
