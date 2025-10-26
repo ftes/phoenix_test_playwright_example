@@ -68,7 +68,11 @@ defmodule MyApp.MixProject do
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"},
       {:phoenix_test, "~> 0.7", only: :test, runtime: false},
-      {:phoenix_test_playwright, "~> 0.7", only: :test, runtime: false}
+      {:phoenix_test_playwright,
+       github: "ftes/phoenix_test_playwright",
+       ref: "feature/browser-pool",
+       only: :test,
+       runtime: false}
     ]
   end
 

@@ -50,5 +50,6 @@ config :phoenix_test,
     # trace failed tests in CI via re-run
     trace: System.get_env("PLAYWRIGHT_TRACE", "false") in ~w(t true),
     trace_dir: "tmp",
-    timeout: 10_000
+    timeout: 10_000,
+    browser_pool_size: String.to_integer(System.get_env("CONCURRENCY"))
   ]
