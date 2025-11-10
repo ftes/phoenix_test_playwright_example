@@ -19,5 +19,7 @@ defmodule Features.RegisterTest do
     |> visit(~p"/users/settings")
     |> assert_has(".phx-connected")
     |> assert_has("h1", text: "Settings")
+    |> visit(~p"/queries")
+    |> assert_has("h1", text: "Database Queries")
   end
 end

@@ -25,6 +25,11 @@ defmodule MyAppWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live_session :default,
+      on_mount: @common_on_mount_hooks do
+      live "/queries", QueriesLive, :index
+    end
   end
 
   # Other scopes may use custom stacks.
