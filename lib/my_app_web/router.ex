@@ -17,6 +17,10 @@ defmodule MyAppWeb.Router do
     plug :accepts, ["json"]
   end
 
+  @common_on_mount_hooks if Application.compile_env(:my_app, :sql_sandbox),
+                           do: [MyAppWeb.LiveAsyncFeatureTests],
+                           else: []
+
   scope "/", MyAppWeb do
     pipe_through :browser
 
@@ -51,7 +55,7 @@ defmodule MyAppWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_authenticated_user,
-      on_mount: [{MyAppWeb.UserAuth, :require_authenticated}] do
+      on_mount: @common_on_mount_hooks ++ [{MyAppWeb.UserAuth, :require_authenticated}] do
       live "/users/settings", UserLive.Settings, :edit
       live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
     end
@@ -63,7 +67,7 @@ defmodule MyAppWeb.Router do
     pipe_through [:browser]
 
     live_session :current_user,
-      on_mount: [{MyAppWeb.UserAuth, :mount_current_scope}] do
+      on_mount: @common_on_mount_hooks ++ [{MyAppWeb.UserAuth, :mount_current_scope}] do
       live "/users/register", UserLive.Registration, :new
       live "/users/log-in", UserLive.Login, :new
       live "/users/log-in/:token", UserLive.Confirmation, :new

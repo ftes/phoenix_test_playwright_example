@@ -21,10 +21,10 @@ config :my_app, MyApp.Repo,
 config :my_app, MyAppWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "NblLPzJN8bu6DVEpqAoD1bBzp596dINaVK0fGjVXJuv9sMlAhmrwBJb4+Se4Lg7B",
-  server: false
+  server: true
 
 # In test we don't send emails
-config :my_app, MyApp.Mailer, adapter: Swoosh.Adapters.Test
+config :my_app, MyApp.Mailer, adapter: Swoosh.Adapters.Local
 
 # Disable swoosh api client as it is only required for production adapters
 config :swoosh, :api_client, false
@@ -42,3 +42,16 @@ config :phoenix_live_view,
 # Sort query params output of verified routes for robust url comparisons
 config :phoenix,
   sort_verified_routes_query_params: true
+
+config :my_app,
+  sql_sandbox: true,
+  dev_routes: true
+
+config :phoenix_test,
+  endpoint: MyAppWeb.Endpoint,
+  otp_app: :my_app,
+  playwright: [
+    # trace failed tests in CI via re-run
+    trace: System.get_env("PLAYWRIGHT_TRACE", "false") in ~w(t true),
+    trace_dir: "tmp"
+  ]
