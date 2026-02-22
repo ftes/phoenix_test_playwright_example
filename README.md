@@ -1,18 +1,31 @@
-# MyApp
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ftes/phoenix_test_playwright_example/elixir.yml)](https://github.com/ftes/phoenix_test_playwright_example/actions)
 
-To start your Phoenix server:
+# PhoenixTest Playwright example
 
-* Run `mix setup` to install and setup dependencies
-* Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+To run the feature test:
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+```
+mix setup
+mix test test/features
+```
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+The Playwright trace viewer should automatically open.
+If it doesn't, drop the `tmp/*.zip` file into [trace.playwright.dev](https://trace.playwright.dev).
 
-## Learn more
+## Regeneration procedure
 
-* Official website: https://www.phoenixframework.org/
-* Guides: https://hexdocs.pm/phoenix/overview.html
-* Docs: https://hexdocs.pm/phoenix
-* Forum: https://elixirforum.com/c/phoenix-forum
-* Source: https://github.com/phoenixframework/phoenix
+This project maintains a clean git history showing each generation step.
+To regenerate from scratch:
+
+```sh
+mix archive.install hex phx_new
+mix phx.new my_app --install
+cd my_app && git init && git add -A && git commit -m "mix phx.new my_app"
+
+mix phx.gen.auth Accounts User users --live
+mix deps.get
+git add -A && git commit -m "mix phx.gen.auth Accounts User users --live"
+
+# Apply PhoenixTestPlaywright changes (see commit diff)
+# Apply Tidewave changes (see commit diff)
+```
